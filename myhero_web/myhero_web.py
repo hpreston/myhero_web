@@ -4,7 +4,6 @@
 
     This is the Web Service for a basic microservice demo application.
     The application was designed to provide a simple demo for Cisco Mantl
-
 '''
 
 from flask import Flask, render_template, request, jsonify
