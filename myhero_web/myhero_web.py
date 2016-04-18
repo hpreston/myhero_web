@@ -8,9 +8,9 @@
 
 from flask import Flask, render_template, request, jsonify
 import datetime
-import urllib
 import json
 import os, sys
+import requests
 
 app = Flask(__name__)
 
@@ -19,11 +19,16 @@ def template_test():
     # Check for submitted vote
     vote = request.args.get('hero')
     if (vote):
-        v = urllib.urlopen(app_server + "/vote/" + vote)
+        uv = app_server + "/vote/" + vote
+        app_requests_headers = {"key": app_key}
+        vpage = requests.post(uv, headers=app_requests_headers)
 
-    u = urllib.urlopen(app_server + "/hero_list")
-    page = u.read()
-    hero_list = json.loads(page)["heros"]
+    u = app_server + "/options"
+    app_requests_headers = {"key": app_key}
+    page = requests.get(u, headers=app_requests_headers)
+    options = page.json()
+    hero_list = options["options"]
+
     return render_template('home.html', hero_list=hero_list, title="Microservice Demo Application", current_time=datetime.datetime.now())
 
 @app.route("/about")
@@ -35,11 +40,15 @@ def results():
     # Check for submitted vote
     vote = request.args.get('hero')
     if (vote):
-        v = urllib.urlopen(app_server + "/vote/" + vote)
+        uv = app_server + "/vote/" + vote
+        app_requests_headers = {"key": app_key}
+        vpage = requests.post(uv, headers=app_requests_headers)
 
-    u = urllib.urlopen(app_server + "/results")
-    page = u.read()
-    tally = json.loads(page)
+    u = app_server + "/results"
+    app_requests_headers = {"key": app_key}
+    page = requests.get(u, headers=app_requests_headers)
+    tally = page.json()
+
     tally = sorted(tally.items(), key = lambda (k,v): v, reverse=True)
     return render_template('results.html', tally = tally, title="Results", current_time=datetime.datetime.now())
 
@@ -56,6 +65,9 @@ if __name__=='__main__':
     parser.add_argument(
         "-a", "--app", help="Address of app server", required=False
     )
+    parser.add_argument(
+        "-k", "--appkey", help="App Server Authentication Key Used in API Calls", required=False
+    )
     args = parser.parse_args()
 
     app_server = args.app
@@ -70,6 +82,19 @@ if __name__=='__main__':
 
     print "App Server: " + app_server
     sys.stderr.write("App Server: " + app_server + "\n")
+
+    app_key = args.appkey
+    # print "Arg App Key: " + str(app_key)
+    if (app_key == None):
+        app_key = os.getenv("myhero_app_key")
+        # print "Env App Key: " + str(app_key)
+        if (app_key == None):
+            get_app_key = raw_input("What is the app server authentication key? ")
+            # print "Input App Key: " + str(get_app_key)
+            app_key = get_app_key
+    print "App Server Key: " + app_key
+    sys.stderr.write("App Server Key: " + app_key + "\n")
+
 
     app.run(debug=True, host='0.0.0.0', port=int("5000"))
 
