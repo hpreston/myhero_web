@@ -60,10 +60,10 @@ A command line argument overrides an environment variable, and raw input is only
 I've included the configuration files needed to do local development with Vagrant in the repo.  Vagrant will still use Docker for local development and is configured to spin up a CentOS7 host VM for running the container.
 
 To start local development run:
-1.  `vagrant up`
-    * You may need to run this twice.  The first time to start the docker host, and the second to start the container.
-2.  Now you can interact with the API or interface at localhost:15002 (configured in Vagrantfile and Vagrantfile.host)
-    * example:  from your local machine open http://localhost:15002 in a web browser
-    * Environment Variables are configured in Vagrantfile for development
+1. `vagrant up`
+   * You may need to run this twice.  The first time to start the docker host, and the second to start the container.
+2. Now you can interact with the API or interface at localhost:15002 (configured in Vagrantfile and Vagrantfile.host)
+   * example:  from your local machine open http://localhost:15002 in a web browser
+   * Environment Variables are configured in Vagrantfile for development
 
 Each of the services in the application (i.e. myhero_web, myhero_app, and myhero_data) include Vagrant support to allow working locally on all three simultaneously.
