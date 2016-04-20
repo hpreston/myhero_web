@@ -33,20 +33,20 @@ Required
 # Basic Usage
 
 In order to run, the service needs 2 pieces of information to be provided:
-1. App Server Address
-2. App Server Authentication Key to Use
+* App Server Address
+* App Server Authentication Key to Use
 
 These details can be provided in one of three ways.
-1. As a command line argument
-    - `python myhero_web/myhero_web.py --app "http://myhero-web.server.com" --appkey "APP AUTH KEY" `
-2. As environment variables
-    - `export myhero_app_server="http://myhero-app.server.com"`
-    - `export myhero_app_key="APP AUTH KEY"`
-    - `python myhero_web/myhero_web.py`
-3. As raw input when the application is run
-    - `python myhero_web/myhero_web.py`
-    - `What is the app server address? http://myhero-app.server.com`
-    - `App Server Key: APP AUTH KEY`
+* As a command line argument
+  - `python myhero_web/myhero_web.py --app "http://myhero-web.server.com" --appkey "APP AUTH KEY" `
+* As environment variables
+  - `export myhero_app_server="http://myhero-app.server.com"`
+  - `export myhero_app_key="APP AUTH KEY"`
+  - `python myhero_web/myhero_web.py`
+* As raw input when the application is run
+  - `python myhero_web/myhero_web.py`
+  - `What is the app server address? http://myhero-app.server.com`
+  - `App Server Key: APP AUTH KEY`
 
 A command line argument overrides an environment variable, and raw input is only used if neither of the other two options provide needed details.
 
