@@ -80,7 +80,7 @@ if __name__=='__main__':
             # print "Input App: " + str(get_app_server)
             app_server = get_app_server
 
-    print "App Server: " + app_server
+    # print "App Server: " + app_server
     sys.stderr.write("App Server: " + app_server + "\n")
 
     app_key = args.appkey
@@ -92,7 +92,7 @@ if __name__=='__main__':
             get_app_key = raw_input("What is the app server authentication key? ")
             # print "Input App Key: " + str(get_app_key)
             app_key = get_app_key
-    print "App Server Key: " + app_key
+    # print "App Server Key: " + app_key
     sys.stderr.write("App Server Key: " + app_key + "\n")
 
 
