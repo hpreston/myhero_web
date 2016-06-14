@@ -29,7 +29,7 @@ def template_test():
     options = page.json()
     hero_list = options["options"]
 
-    return render_template('home.html', hero_list=hero_list, title="Microservice Demo Application!", current_time=datetime.datetime.now())
+    return render_template('home.html', hero_list=hero_list, title="Microservice Demo Application for SEVT!", current_time=datetime.datetime.now())
 
 @app.route("/about")
 def about():
