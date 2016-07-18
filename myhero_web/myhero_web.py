@@ -74,7 +74,15 @@ if __name__=='__main__':
     parser.add_argument(
         "-k", "--appkey", help="App Server Authentication Key Used in API Calls", required=False
     )
+    parser.add_argument(
+        "--port", help="Port to listen on", required=False, default=5000
+    )
+
     args = parser.parse_args()
+
+    # Determine port number
+    listen = int(args.port)
+    print("Listen: " + str(listen))
 
     app_server = args.app
     # print "Arg App: " + str(app_server)
@@ -102,6 +110,6 @@ if __name__=='__main__':
     sys.stderr.write("App Server Key: " + app_key + "\n")
 
 
-    app.run(debug=True, host='0.0.0.0', port=int("5000"))
+    app.run(debug=True, host='0.0.0.0', port=listen)
 
 
