@@ -16,5 +16,8 @@ ADD . /app
 WORKDIR /app
 RUN pip install --requirement ./requirements.txt
 
-CMD [ "python", "./myhero_web/myhero_web.py" ]
+ENV myhero_app_server="http://demo-app.blue.browndogtech.com" \
+    myhero_app_key="demo"
+
+CMD [ "python", "./myhero_web/myhero_web.py", "-a http://demo-app.blue.browndogtech.com", "-k app" ]
 
