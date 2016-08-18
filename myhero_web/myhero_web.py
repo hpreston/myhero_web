@@ -44,7 +44,7 @@ def results():
         app_requests_headers = {"key": app_key}
         vpage = requests.post(uv, headers=app_requests_headers)
 
-    u = app_server + "/results"
+    u = app_server + "/v2/results"
     app_requests_headers = {"key": app_key}
     page = requests.get(u, headers=app_requests_headers)
     # Display the timestamp of the results based on informaiton passed by the APP server
@@ -54,8 +54,6 @@ def results():
     except:
         timestamp = datetime.datetime.now()
     tally = page.json()
-
-    tally = sorted(tally.items(), key = lambda (k,v): v, reverse=True)
     return render_template('results.html', tally = tally, title="Results", current_time=timestamp)
 
 @app.template_filter()
