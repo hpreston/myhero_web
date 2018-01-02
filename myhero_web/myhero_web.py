@@ -44,7 +44,7 @@ def results():
         app_requests_headers = {"key": app_key}
         vpage = requests.post(uv, headers=app_requests_headers)
 
-    u = app_server + "/results"
+    u = app_server + "/v2/results"
     app_requests_headers = {"key": app_key}
     page = requests.get(u, headers=app_requests_headers)
     # Display the timestamp of the results based on informaiton passed by the APP server
@@ -54,8 +54,6 @@ def results():
     except:
         timestamp = datetime.datetime.now()
     tally = page.json()
-
-    tally = sorted(tally.items(), key = lambda (k,v): v, reverse=True)
     return render_template('results.html', tally = tally, title="Results", current_time=timestamp)
 
 @app.template_filter()
@@ -74,7 +72,15 @@ if __name__=='__main__':
     parser.add_argument(
         "-k", "--appkey", help="App Server Authentication Key Used in API Calls", required=False
     )
+    parser.add_argument(
+        "--port", help="Port to listen on", required=False, default=5000
+    )
+
     args = parser.parse_args()
+
+    # Determine port number
+    listen = int(args.port)
+    print("Listen: " + str(listen))
 
     app_server = args.app
     # print "Arg App: " + str(app_server)
@@ -102,6 +108,6 @@ if __name__=='__main__':
     sys.stderr.write("App Server Key: " + app_key + "\n")
 
 
-    app.run(debug=True, host='0.0.0.0', port=int("5000"))
+    app.run(debug=True, host='0.0.0.0', port=listen)
 
 
